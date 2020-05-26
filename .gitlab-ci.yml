@@ -1,0 +1,33 @@
+image: gitlab_local_node:10
+
+stages:
+  - build
+  - deploy
+
+# This folder is cached between builds
+# http://docs.gitlab.com/ce/ci/yaml/README.html#cache
+cache:
+  paths:
+    - node_modules/
+
+build:
+  tags:
+    - Frontend
+  stage: build
+  before_script:
+    - npm install -g yarn
+  script:
+    - yarn
+    - yarn build
+  artifacts:
+    name: "$CI_JOB_NAME"
+    paths:
+      - dist
+
+deploy:
+  tags:
+    - Frontend
+  stage: deploy
+  script:
+    - mkdir -p /root/dist/"$CI_PROJECT_PATH"
+    - cp -r dist/* /root/dist/"$CI_PROJECT_PATH"
