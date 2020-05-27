@@ -1,6 +1,6 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app)
 
-> react-router-dom, scss, axios and ant-design
+> react-router-dom, scss, axios and fish-design
 
 ## Available Scripts
 

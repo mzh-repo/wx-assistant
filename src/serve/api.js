@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 
-import { baseUrl } from "./config";
+import baseUrl from "./config";
 axios.defaults.headers["Content-Type"] = "application/json";
 
 let config = {
@@ -34,4 +34,5 @@ _axios.interceptors.response.use(
     return Promise.reject();
   }
 );
+
 React.Component.prototype.$axios = _axios;
