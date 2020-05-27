@@ -14,15 +14,15 @@ build:
   tags:
     - Frontend
   stage: build
-  before_script:
-    - npm install -g yarn
+  # before_script:
+  #   - npm install -g yarn
   script:
     - yarn
     - yarn build
   artifacts:
     name: "$CI_JOB_NAME"
     paths:
-      - dist
+      - build
 
 deploy:
   tags:
@@ -30,4 +30,4 @@ deploy:
   stage: deploy
   script:
     - mkdir -p /root/dist/"$CI_PROJECT_PATH"
-    - cp -r dist/* /root/dist/"$CI_PROJECT_PATH"
+    - cp -r build/* /root/dist/"$CI_PROJECT_PATH"
