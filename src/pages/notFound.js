@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Progress, Button } from "antd";
+import { Progress, Button } from "ppfish";
 
-import "../assets/styles/pages/notFound.scss";
+import "../assets/styles/pages/notFound.less";
 
 // 声明组件  并对外输出
 export default class notFound extends Component {
