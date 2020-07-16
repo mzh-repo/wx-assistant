@@ -8,8 +8,6 @@ export default (props) => {
   const [submit, setSubmit] = useState(false);
   const [formData, setFormData] = useState({ account: "", verifyInfo: "", note: "" });
 
-  // const { getFieldDecorator } = props.form;
-
   useEffect(() => {
     const init = async () => {
       const res = await lastMessageApi(props.customId);
@@ -48,6 +46,7 @@ export default (props) => {
             initialValue: formData.account,
             getValueFromEvent: this.handleAccount,
           })(<Input placeholder="请输入" />)} */}
+
           <Input
             placeholder="请输入"
             defaultValue={formData.account}
