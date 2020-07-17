@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 
 import baseUrl from "./config";
+
 axios.defaults.headers["Content-Type"] = "application/json";
 
 let config = {
@@ -13,8 +14,10 @@ const _axios = axios.create(config);
 
 _axios.interceptors.request.use(
   (config) => {
-    // Do something before request is sent
-    config.headers["Authorization"] = "";
+    const token = sessionStorage.getItem("TOKEN");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
     return config;
   },
   (error) => {
@@ -31,7 +34,7 @@ _axios.interceptors.response.use(
   },
   (error) => {
     // Do something with response error
-    return Promise.reject();
+    return Promise.reject(error.response);
   }
 );
 

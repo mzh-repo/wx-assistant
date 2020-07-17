@@ -1,24 +1,27 @@
 import React from "react";
 import { Alert } from "ppfish";
+import Axios from "axios";
 
 import SubmitForm from "./addFriend";
 import IsFriend from "./isFriend";
 import "../assets/styles/pages/app.less";
 
-export default function Search() {
+import ConvertParams from "../libs/util";
+import Config from "../serve/config";
+
+export default function Search(props) {
+  const params = props.location.search;
+  const http = Axios.create({
+    baseURL: Config.baseUrl,
+  });
+  http.post("/api/v2/login", ConvertParams(params)).then((res) => {
+    sessionStorage.setItem("TOKEN", res.data.token);
+  });
+
   const isFriend = false;
 
   const messages = [];
-  const users = [
-    {
-      id: 1,
-      name: "a",
-    },
-    {
-      id: 2,
-      name: "b",
-    },
-  ];
+  const users = [];
 
   return (
     <div className="app">
