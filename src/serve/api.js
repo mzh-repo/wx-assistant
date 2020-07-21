@@ -1,12 +1,11 @@
-import React from "react";
 import axios from "axios";
 
-import baseUrl from "./config";
+import Config from "./config";
 
 axios.defaults.headers["Content-Type"] = "application/json";
 
 let config = {
-  baseURL: baseUrl,
+  baseURL: Config.baseUrl,
   timeout: 60 * 1000,
 };
 
@@ -30,7 +29,7 @@ _axios.interceptors.request.use(
 _axios.interceptors.response.use(
   (response) => {
     // Do something with response data
-    return response;
+    return response.data;
   },
   (error) => {
     // Do something with response error
@@ -38,4 +37,7 @@ _axios.interceptors.response.use(
   }
 );
 
-React.Component.prototype.$axios = _axios;
+export default {
+  get: (url, parmas) => _axios.get(url, parmas),
+  post: (url, parmas) => _axios.post(url, parmas),
+};
