@@ -33,11 +33,11 @@ export default (props) => {
       if (res) {
         setLogin(true);
         setStaffId(res.wx_id);
-        if (cid) {
-          setCustomId(cid);
-          const re = await alreadyFriendApi(cid);
-          setFriend(re);
-        }
+      }
+      if (cid) {
+        setCustomId(cid);
+        const re = await alreadyFriendApi(cid);
+        setFriend(re);
       }
     };
     init();
@@ -46,13 +46,7 @@ export default (props) => {
   if (!authorized) {
     return <NoData title="请联系销售人员开通微信助手服务" />;
   } else if (!login) {
-    // return <NoData title="请先登录微信助手" />;
-    return (
-      <div>
-        <Alert message="你与该客户还不是微信好友" type="warning" showIcon />
-        <SubmitForm customId={customId} />
-      </div>
-    );
+    return <NoData title="请先登录微信助手" />;
   } else if (!friend) {
     return (
       <div>
@@ -61,6 +55,6 @@ export default (props) => {
       </div>
     );
   } else {
-    return <IsFriend />;
+    return <IsFriend customId={customId} staffId={staffId} />;
   }
 };
