@@ -7,7 +7,7 @@ import IsFriend from "./isFriend";
 import NoData from "../components/noData";
 import "../assets/styles/pages/app.less";
 
-import ConvertParams from "../libs/util";
+import { convertParams } from "../libs/util";
 import { loginApi, alreadyFriendApi, currentRobotApi } from "../serve/api/index";
 
 export default () => {
@@ -21,7 +21,7 @@ export default () => {
 
   useEffect(() => {
     const init = async () => {
-      const result = await loginApi(ConvertParams(params));
+      const result = await loginApi(convertParams(params));
       sessionStorage.setItem("TOKEN", result.token);
       setAuthorized(result.wechat_enabled);
       const cid = result.target_wechat_id;
