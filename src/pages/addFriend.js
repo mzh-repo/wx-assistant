@@ -12,13 +12,11 @@ export default (props) => {
 
   useEffect(() => {
     const init = async () => {
-      if (props.customId) {
-        const res = await lastMessageApi(props.customId);
-        setFormData({ ...formData, verifyInfo: res.hello_words });
-      }
+      const res = await lastMessageApi(props.customId);
+      setFormData({ ...formData, verifyInfo: res.hello_words });
     };
     init();
-  }, [props]);
+  }, [formData, props.customId]);
 
   const handleSubmit = async (e) => {
     // e.preventDefault();
@@ -31,7 +29,7 @@ export default (props) => {
         cid: props.customId,
       };
       try {
-        const result = await addFriendApi(data);
+        addFriendApi(data);
         message.success("好友请求发送成功");
       } catch (err) {
         message.error(err.data.title);

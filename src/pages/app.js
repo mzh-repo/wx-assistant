@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { Alert } from "ppfish";
-import Axios from "axios";
 
 import SubmitForm from "./addFriend";
 import IsFriend from "./isFriend";
@@ -8,20 +8,16 @@ import NoData from "../components/noData";
 import "../assets/styles/pages/app.less";
 
 import ConvertParams from "../libs/util";
-import Config from "../serve/config";
 import { loginApi, alreadyFriendApi, currentRobotApi } from "../serve/api/index";
 
-export default (props) => {
+export default () => {
   const [authorized, setAuthorized] = useState(false); // 是否授权
   const [login, setLogin] = useState(false); // 机器人是否登录
   const [friend, setFriend] = useState(false); // 是否好友
   const [customId, setCustomId] = useState(null);
   const [staffId, setStaffId] = useState(null);
 
-  const params = props.location.search;
-  const http = Axios.create({
-    baseURL: Config.baseUrl,
-  });
+  const params = useLocation().search;
 
   useEffect(() => {
     const init = async () => {
@@ -41,7 +37,7 @@ export default (props) => {
       }
     };
     init();
-  }, []);
+  }, [params]);
 
   if (!authorized) {
     return <NoData title="请联系销售人员开通微信助手服务" />;

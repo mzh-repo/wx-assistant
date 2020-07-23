@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { Select, Input } from "ppfish";
 
 import NoData from "../components/noData";
@@ -17,10 +18,10 @@ const Content = (props) => {
 export default (props) => {
   const [belong, setBelong] = useState("");
   const [users, setUsers] = useState([]);
-  const [search, setSearch] = useState("");
   const [chats, setChats] = useState([]);
 
   const { Search } = Input;
+  const history = useHistory();
 
   useEffect(() => {
     const init = async () => {
@@ -32,7 +33,9 @@ export default (props) => {
             setBelong(item.wechat_id);
           }
         });
-        getChatData(props.staffId);
+        // getChatData(props.staffId);
+        const res = await chatApi(props.customId, props.staffId);
+        setChats(res.data_list || []);
       }
     };
     init();
@@ -44,10 +47,8 @@ export default (props) => {
   };
 
   const handleChange = (e) => {
-    console.log("e: ", e);
     getChatData(e);
   };
-  const handleSearch = () => {};
 
   return (
     <div>
@@ -60,7 +61,11 @@ export default (props) => {
             </Select.Option>
           ))}
         </Select>
-        <Search placeholder="请搜索消息" onSearch={handleSearch} style={{ width: 120 }} />
+        <Search
+          placeholder="请搜索消息"
+          onSearch={(e) => history.push(`/search/${e}`)}
+          style={{ width: 120 }}
+        />
       </div>
       <Content data={chats} />
     </div>
