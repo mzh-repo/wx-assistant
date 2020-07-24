@@ -355,6 +355,7 @@ module.exports = function (webpackEnv) {
             },
           ],
           include: paths.appSrc,
+          exclude: [path.resolve(__dirname, "../src/libs")],
         },
         {
           // "oneOf" will traverse all following loaders until one will
@@ -377,7 +378,7 @@ module.exports = function (webpackEnv) {
             {
               test: /\.(js|mjs|jsx|ts|tsx)$/,
               include: paths.appSrc,
-              exclude: path.resolve(__dirname, "src/libs/"),
+              exclude: [path.resolve(__dirname, "../src/libs")],
               loader: require.resolve("babel-loader"),
               options: {
                 customize: require.resolve("babel-preset-react-app/webpack-overrides"),
