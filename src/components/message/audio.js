@@ -1,35 +1,33 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import baseUrl from "../../assets/images/audio-play.png";
 import animationUrl from "../../assets/images/audio-play.gif";
 
 import Config from "../../serve/config";
-// import Audio from "../../libs/decodeAudio";
+import Audio from "../../libs/decodeAudio";
 
 export default function Audios(props) {
+  const [audioUrl, setAudioUrl] = useState();
+
   const { message } = props;
   const { id } = message;
   const voiceImage = baseUrl;
-  const audioUrl = "";
+  // const audioUrl = "";
 
   useEffect(() => {
-    changeAudio();
-  });
-
-  const changeAudio = () => {
-    // TODO:语音格式转换
     const voice = document.querySelector(`#message-${id}`);
     voice.setAttribute("data-after", `${message.voice_time}″`);
     // // 微信arm转mp3
-    const url = message.url.replace(Config.audioOrgin, Config.audioUrl);
+    const url = message.content.url.replace(Config.audioOrgin, Config.audioUrl);
     console.log(url);
-    // fetch(url)
-    //   .then((res) => res.arrayBuffer())
-    //   .then((arrayBuffer) => {
-    //     const blob = Audio.convert(arrayBuffer);
-    //     this.audioUrl = URL.createObjectURL(blob);
-    //   });
-  };
+    fetch(url)
+      .then((res) => res.arrayBuffer())
+      .then((arrayBuffer) => {
+        const blob = Audio.convert(arrayBuffer);
+        const url = URL.createObjectURL(blob);
+        setAudioUrl(url);
+      });
+  }, [id, message.content.url, message.voice_time]);
 
   const playAudio = () => {
     // status为定义在标签内的属性 play代表可播放 stop代表可停止

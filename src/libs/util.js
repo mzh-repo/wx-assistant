@@ -63,7 +63,9 @@ export const convertData = (message, keyWord) => {
     let titleNew = message.title;
     if (keyWord !== "") {
       const reg = new RegExp(keyWord, "gi");
-      titleNew = titleNew.replace(reg, (txt) => `<span class="key-word-wait">${txt}</span>`);
+      if (titleNew) {
+        titleNew = titleNew.replace(reg, (txt) => `<span class="key-word-wait">${txt}</span>`);
+      }
     }
     title.insertAdjacentHTML("beforeEnd", `<span>${titleNew}</span>`);
   }

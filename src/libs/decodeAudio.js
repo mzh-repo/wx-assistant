@@ -1,6 +1,5 @@
-/* eslint-disable */
 import decoder from "./ffmpeg/decoder.min";
-import ffmpeg from "../libs/ffmpeg/ffmpeg-mp4";
+import ffmpeg from "./ffmpeg/ffmpeg-mp4";
 
 const SPLIT_LINE_LENGTH = 80;
 const SPLIT_LINE_CHAR = "=";
@@ -9,21 +8,15 @@ const __split_line = (str) => {
   if (str) {
     const length = SPLIT_LINE_LENGTH - str.length;
     const left = Math.ceil(length / 2);
-    const ret = `${SPLIT_LINE_CHAR.repeat(left) +
-      str +
-      SPLIT_LINE_CHAR.repeat(length - left)}\n`;
+    const ret = `${SPLIT_LINE_CHAR.repeat(left) + str + SPLIT_LINE_CHAR.repeat(length - left)}\n`;
     return ret;
   }
   return SPLIT_LINE_CHAR.repeat(SPLIT_LINE_LENGTH);
 };
 
 const log = (stdout, stderr) => {
-  console.log(
-    `${__split_line("STDOUT:")}${stdout.join("\n")}${__split_line(null)}`
-  );
-  console.log(
-    `${__split_line("STDERR:")}${stderr.join("\n")}${__split_line(null)}`
-  );
+  console.log(`${__split_line("STDOUT:")}${stdout.join("\n")}${__split_line(null)}`);
+  console.log(`${__split_line("STDERR:")}${stderr.join("\n")}${__split_line(null)}`);
 };
 
 const _convert = (decoderFunc, input, debug) => {
@@ -58,12 +51,7 @@ const __decoder = (args, MEMFS, stdout, stderr) =>
   });
 
 const amrToPcmDecoder = (input, stdout, stderr) =>
-  __decoder(
-    ["test.amr", "test.pcm"],
-    [{ name: "test.amr", data: input }],
-    stdout,
-    stderr
-  );
+  __decoder(["test.amr", "test.pcm"], [{ name: "test.amr", data: input }], stdout, stderr);
 
 const __ffmpeg = (args, MEMFS, stdout, stderr) =>
   ffmpeg({
@@ -83,18 +71,7 @@ const __ffmpeg = (args, MEMFS, stdout, stderr) =>
 
 const pcmToMP3Decoder = (input, stdout, stderr) =>
   __ffmpeg(
-    [
-      "-y",
-      "-f",
-      "s16le",
-      "-ar",
-      "24000",
-      "-ac",
-      "1",
-      "-i",
-      "test.pcm",
-      "out.mp3",
-    ],
+    ["-y", "-f", "s16le", "-ar", "24000", "-ac", "1", "-i", "test.pcm", "out.mp3"],
     [{ name: "test.pcm", data: input }],
     stdout,
     stderr

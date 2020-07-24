@@ -11,7 +11,7 @@ const Content = (props) => {
   if (props.data.length === 0) {
     return <NoData title=" 暂无数据" />;
   } else {
-    return <ChatMessage message={props.data} />;
+    return <ChatMessage messages={props.data} />;
   }
 };
 
@@ -51,7 +51,7 @@ export default (props) => {
   };
 
   return (
-    <div>
+    <div style={{ height: "100%" }}>
       <div className="search-box">
         <div className="title">所属微信</div>
         <Select style={{ width: 200 }} defaultValue={belong} onChange={handleChange}>

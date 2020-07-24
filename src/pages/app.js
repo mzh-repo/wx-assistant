@@ -42,7 +42,12 @@ export default () => {
   if (!authorized) {
     return <NoData title="请联系销售人员开通微信助手服务" />;
   } else if (!login) {
-    return <NoData title="请先登录微信助手" />;
+    // return <NoData title="请先登录微信助手" />;
+
+    // TODO: for test, need remove
+    return (
+      <IsFriend customId={customId || "edwardlol"} staffId={staffId || "wxid_0zq0bti7syjx22"} />
+    );
   } else if (!friend) {
     return (
       <div>
@@ -51,6 +56,6 @@ export default () => {
       </div>
     );
   } else {
-    return <IsFriend customId={customId} staffId={staffId} />;
+    // return <IsFriend customId={customId} staffId={staffId} />;
   }
 };
