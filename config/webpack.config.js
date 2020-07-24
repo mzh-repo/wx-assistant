@@ -59,7 +59,7 @@ const themeVariables = lessToJs(
 
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
-module.exports = function(webpackEnv) {
+module.exports = function (webpackEnv) {
   const isEnvDevelopment = webpackEnv === "development";
   const isEnvProduction = webpackEnv === "production";
 
@@ -137,7 +137,7 @@ module.exports = function(webpackEnv) {
           loader,
           options: {
             lessOptions: {
-              modifyVars: themeVariables,
+              modifyVars: themeVariables, // 主题配置
               javascriptEnabled: true,
             },
           },
@@ -377,6 +377,7 @@ module.exports = function(webpackEnv) {
             {
               test: /\.(js|mjs|jsx|ts|tsx)$/,
               include: paths.appSrc,
+              exclude: path.resolve(__dirname, "src/libs/"),
               loader: require.resolve("babel-loader"),
               options: {
                 customize: require.resolve("babel-preset-react-app/webpack-overrides"),
@@ -496,13 +497,25 @@ module.exports = function(webpackEnv) {
             {
               test: lessRegex,
               exclude: lessModuleRegex,
-              use: getStyleLoaders(
+              use: [
+                ...getStyleLoaders(
+                  {
+                    importLoaders: 2,
+                    sourceMap: isEnvProduction && shouldUseSourceMap,
+                  },
+                  "less-loader"
+                ),
                 {
-                  importLoaders: 2,
-                  sourceMap: isEnvProduction && shouldUseSourceMap,
+                  loader: "style-resources-loader",
+                  options: {
+                    patterns: [
+                      path.resolve(__dirname, "../src/assets/styles/abstracts/variables.less"),
+                      path.resolve(__dirname, "../src/assets/styles/abstracts/functions.less"),
+                      path.resolve(__dirname, "../src/assets/styles/abstracts/mixins.less"),
+                    ],
+                  },
                 },
-                "less-loader"
-              ),
+              ],
               sideEffects: true,
             },
             {

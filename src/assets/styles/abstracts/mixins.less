@@ -10,20 +10,27 @@
 }
 
 /// set element box center with flex layout
-.box-center() {
+.box-center {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 /// set element display in column
-.flex-column() {
+.flex-column {
   display: flex;
   flex-direction: column;
 }
 
 /// set element display in column
-.flex-row() {
+.flex-row {
   display: flex;
   flex-direction: row;
+}
+
+// set ellipsis
+.ellipsis() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
