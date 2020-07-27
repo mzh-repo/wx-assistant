@@ -3,13 +3,15 @@ import React, { useState, useEffect } from "react";
 import play from "../../assets/images/play.png";
 
 export default function Video(props) {
+  const [dialogVisible, setDialog] = useState(false);
+
   const { message } = props;
   const { id } = message;
-  const [dialogVisible, setDialog] = useState(false);
+  const { content } = message;
 
   useEffect(() => {
     const video = document.querySelector(`#video-${id}`);
-    video.src = message.url;
+    video.src = content.url;
   });
 
   const previewVideo = () => {
@@ -23,7 +25,6 @@ export default function Video(props) {
   return (
     <div className={message.from_me ? "my-message-pic" : "other-message-pic"}>
       <div className="video" id={id} onClick={previewVideo}>
-        {/*  from_me 为true表示自己的项目 */}
         <video id={`video-${id}`}>您的浏览器不支持 video 标签。</video>
         <img src={play} alt="" className="play-icon" />
       </div>
@@ -32,7 +33,7 @@ export default function Video(props) {
           <div className="mask" onClick={closeDialog}></div>
           <div className="dialog">
             <video autoPlay controls muted>
-              <source type="video/mp4" src={message.url} />
+              <source type="video/mp4" src={content.url} />
             </video>
           </div>
         </div>

@@ -3,6 +3,7 @@ import React from "react";
 export default function File(props) {
   const { message } = props;
   const { id } = props.message;
+  const { content } = message;
 
   const download = (url) => {
     const eleLink = document.createElement("a");
@@ -34,13 +35,13 @@ export default function File(props) {
 
   return (
     <div className={message.from_me ? "my-message-dowload" : "other-message-dowload"}>
-      <div id={id} className="download" onClick={() => download(message.url)}>
-        <img src={getDownloadPic(message.file_type)} alt="" />
+      <div id={id} className="download" onClick={() => download(content.url)}>
+        <img src={getDownloadPic(content.file_type)} alt="" />
         <div className="download-main">
           <div className="download-title" id={`title-${id}`}>
             <span></span>
           </div>
-          <div className="download-size">{message.description}</div>
+          <div className="download-size">{content.description}</div>
         </div>
       </div>
     </div>
