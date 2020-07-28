@@ -7,7 +7,6 @@ export default function Text(props) {
   return (
     <div className={message.from_me ? "my-message" : "other-message"}>
       <div className="word" id={id}>
-        {/*  from_me 为true表示自己的项目 */}
         <span>{message.content}</span>
       </div>
     </div>

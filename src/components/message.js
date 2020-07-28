@@ -12,14 +12,42 @@ import Video from "./message/video";
 import Text from "./message/text";
 import "../assets/styles/components/message.less";
 
-import { convertMessageTime, convertData } from "../libs/util";
+import { convertMessageTime } from "../libs/util";
 
 export default function Message(props) {
   const { message } = props;
+  const { keyWord } = props;
 
   useEffect(() => {
+    const convertData = (message, keyWord) => {
+      const title = document.querySelector(`#title-${message.id}`);
+      const information = document.querySelector(`#information-${message.id}`);
+      if (title) {
+        title.removeChild(title.querySelectorAll("span")[0]);
+        let titleNew = message.content.title;
+        if (keyWord !== "") {
+          const reg = new RegExp(keyWord, "gi");
+          if (titleNew) {
+            titleNew = titleNew.replace(reg, (txt) => `<span class="key-word-wait">${txt}</span>`);
+          }
+        }
+        title.insertAdjacentHTML("beforeEnd", `<span>${titleNew}</span>`);
+      }
+      if (information) {
+        information.removeChild(information.querySelectorAll("span")[0]);
+        let informationNew = message.content.description;
+        if (keyWord !== "") {
+          const reg = new RegExp(keyWord, "gi");
+          informationNew = informationNew.replace(
+            reg,
+            (txt) => `<span class="key-word-wait">${txt}</span>`
+          );
+        }
+        information.insertAdjacentHTML("beforeEnd", `<span>${informationNew}</span>`);
+      }
+    };
     message.forEach((item) => {
-      convertData(item, item.keyWord);
+      convertData(item, keyWord);
     });
   });
 
@@ -32,10 +60,10 @@ export default function Message(props) {
           key={item.id}
         >
           <div className="message-pic">
-            <img src={item.avatar_url} alt="" />
+            <img src={item.speaker.avatar_url} alt="" />
           </div>
           <div className={item.from_me ? "my-area" : "information-area"}>
-            {!item.from_me && <div className="message-name">{item.nickname}</div>}
+            {!item.from_me && <div className="message-name">{item.speaker.nickname}</div>}
             {item.type === 2001 && <Text message={item} />}
             {item.type === 2002 && <Image message={item} />}
             {item.type === 2003 && <Audio message={item} />}

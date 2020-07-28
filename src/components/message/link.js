@@ -3,9 +3,10 @@ import React from "react";
 export default function Link(props) {
   const { message } = props;
   const { id } = message;
+  const { content } = message;
 
   const toWeb = () => {
-    window.open(message.description);
+    window.open(content.description);
   };
 
   return (
@@ -18,11 +19,11 @@ export default function Link(props) {
           <div id={`information-${id}`} className="url-information">
             <span></span>
           </div>
-          <img src={message.thumbnail_url} alt="" />
+          <img src={content.thumbnail_url} alt="" />
         </div>
         <div className="url-type">
           <div className="url-line" />
-          <div className="url-type-name">{message.bottom}</div>
+          <div className="url-type-name">{content.bottom}</div>
         </div>
       </div>
     </div>
