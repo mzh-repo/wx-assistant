@@ -1,3 +1,7 @@
+.message-content {
+  background: #f0f0f2;
+}
+
 .message-container {
   justify-content: flex-start;
   padding: 8px 24px;
@@ -55,6 +59,12 @@
   text-align: left;
   font-size: 14px;
   line-height: 1.57;
+
+  span {
+    width: 100%;
+    word-wrap: break-word;
+    word-break: break-all;
+  }
 }
 
 //image
@@ -147,8 +157,8 @@
   width: 240px;
   background-color: #fff;
   cursor: pointer;
-
   .flex-column;
+
   img {
     border-radius: 2px;
     .set-size(40px);
@@ -303,7 +313,6 @@
   padding: 12px;
   width: 240px;
   background-color: #fff;
-
   .flex-column;
 
   .app-img {
@@ -371,7 +380,7 @@
   box-sizing: border-box;
   margin: 4px 0;
   padding: 8px;
-  max-width: 340px;
+  max-width: 300px;
   border-radius: 3px;
   background-color: #fff;
 }
@@ -412,7 +421,6 @@
 
 .my-message {
   margin: 0 12px 7px 0;
-
   background-color: #a1e759;
 
   &:after {
@@ -451,7 +459,6 @@
   left: 0;
   z-index: 99;
   overflow: hidden;
-
   .set-size(100%);
 
   .mask {

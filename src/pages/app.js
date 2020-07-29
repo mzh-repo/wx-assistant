@@ -45,9 +45,7 @@ export default () => {
     // return <NoData title="请先登录微信助手" />;
 
     // TODO: for test, need remove
-    return (
-      <IsFriend customId={customId || "edwardlol"} staffId={staffId || "wxid_0zq0bti7syjx22"} />
-    );
+    return <IsFriend customId={customId} staffId={staffId || "wxid_0zq0bti7syjx22"} />;
   } else if (!friend) {
     return (
       <div>

@@ -52,7 +52,7 @@ export default function Message(props) {
   });
 
   return (
-    <div>
+    <div className="message-content">
       {message.map((item) => (
         <div
           className={`message-container ${item.from_me ? "row-reverse" : ""}`}

@@ -13,6 +13,11 @@ export const currentRobotApi = () => http.get("/staff/current_robot"); // 机器
 // 聊天内容
 export const chatApi = (cid, sid) =>
   http.get(`/chat/history?left_wechat_alias=${cid}&right_wechat_id=${sid}`); // 获取消息列表
+export const searchApi = (cid, sid, keyword, page) =>
+  http.get(
+    `/chat/search_history?left_wechat_alias=${cid}&right_wechat_id=${sid}&keyword=${keyword}&page=${page}&page_size=10`
+  );
+// 搜索聊天记录
 export const usersApi = (id) => http.get(`/chat/owners?wechat_alias=${id}`); // 获取指定客户微信所有归属信息
 
 // 微信机器人管理
