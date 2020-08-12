@@ -11,8 +11,16 @@ export const addFriendApi = (data) => http.post("/friends/add_friend_request", d
 export const currentRobotApi = () => http.get("/staff/current_robot"); // 机器人当前状态
 
 // 聊天内容
-export const chatApi = (cid, sid) =>
-  http.get(`/chat/history?left_wechat_alias=${cid}&right_wechat_id=${sid}`); // 获取消息列表
+export const chatApi = (cid, sid, msgId, msgPosition) =>
+  http.get(
+    `/chat/history?left_wechat_alias=${cid}&right_wechat_id=${sid}&msg_id=${msgId}&msg_position=${msgPosition}`
+  );
+
+//首次获取聊天内容
+export const getChatApi = (cid, sid) =>
+  http.get(`/chat/history?left_wechat_alias=${cid}&right_wechat_id=${sid}`);
+
+// 获取消息列表
 export const searchApi = (cid, sid, keyword, page) =>
   http.get(
     `/chat/search_history?left_wechat_alias=${cid}&right_wechat_id=${sid}&keyword=${keyword}&page=${page}&page_size=10`

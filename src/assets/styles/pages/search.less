@@ -1,8 +1,8 @@
-.main {
-  width: 392px;
-  height: 534px;
+.result-container,
+.search-container {
   margin: auto;
   background: #f0f0f2;
+  .set-size(392px, 534px);
 }
 
 .info {
@@ -14,5 +14,25 @@
 
   span {
     padding: 0 5px;
+  }
+}
+
+.message-search {
+  cursor: pointer;
+  position: relative;
+  padding-top: 26px;
+
+  &:hover {
+    background: #e6e7eb;
+  }
+
+  &:hover::after {
+    content: "查看上下文";
+    color: #3e3eb3;
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    font-size: 12px;
+    font-weight: 400;
   }
 }

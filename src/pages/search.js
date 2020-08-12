@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { LoadingOutlined } from "@ant-design/icons";
 
 import HeaderBar from "../components/headerBar";
@@ -10,6 +11,37 @@ import "../assets/styles/pages/search.less";
 import { convertParams } from "../libs/util";
 import { searchApi } from "../serve/api/index";
 
+const Content = (props) => {
+  if (props.data.length === 0) {
+    return <NoData title=" 暂无数据" />;
+  } else {
+    return (
+      <div id="result-content" style={{ height: "100%", overflowY: "auto" }}>
+        {props.data.map((item) => {
+          return (
+            <div
+              key={item.id}
+              onClick={() => {
+                props.goResult(item.id);
+              }}
+            >
+              <Message keyWord={props.search} message={item} type="search" />
+              <div className="line"></div>
+            </div>
+          );
+        })}
+        {!props.noMore && (
+          <div className="info">
+            <LoadingOutlined />
+            加载中...
+          </div>
+        )}
+        {props.noMore && <div className="info">没有更多了</div>}
+      </div>
+    );
+  }
+};
+
 export default function Search(props) {
   const { customId, staffId } = convertParams(props.location.search);
 
@@ -17,7 +49,9 @@ export default function Search(props) {
   const [chats, setChats] = useState([]);
   const [page, setPage] = useState(0);
   const [noMore, setNoMore] = useState(false);
-  const [Loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
+
+  const history = useHistory();
 
   useEffect(() => {
     const init = async () => {
@@ -44,6 +78,10 @@ export default function Search(props) {
     getMoreData();
   };
 
+  const goResult = (id) => {
+    history.push(`/result/${search}?customId=${customId}&staffId=${staffId}&id=${id}`);
+  };
+
   const handleScroll = () => {
     const el = document.querySelector("#result-content");
     // 滚动条相对顶部位置
@@ -53,7 +91,7 @@ export default function Search(props) {
     // 总高度
     const totalHeight = el.scrollHeight;
     if (!noMore && top + height >= totalHeight) {
-      if (Loading) {
+      if (loading) {
         getMore();
         setLoading(false);
         setTimeout(() => {
@@ -64,21 +102,9 @@ export default function Search(props) {
   };
 
   return (
-    <div className="main" onWheel={handleScroll}>
+    <div className="search-container" onWheel={handleScroll}>
       <HeaderBar title="搜索结果" />
-      {chats.length > 0 && (
-        <div id="result-content" style={{ height: "100%", overflowY: "auto" }}>
-          <Message message={chats} />
-          {!noMore && (
-            <div className="info">
-              <LoadingOutlined />
-              加载中...
-            </div>
-          )}
-          {noMore && <div className="info">没有更多了</div>}
-        </div>
-      )}
-      {chats.length === 0 && <NoData title=" 暂无数据" />}
+      <Content data={chats} noMore={noMore} search={search} goResult={goResult} />
     </div>
   );
 }

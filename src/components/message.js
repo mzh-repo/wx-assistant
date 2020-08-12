@@ -15,8 +15,7 @@ import "../assets/styles/components/message.less";
 import { convertMessageTime } from "../libs/util";
 
 export default function Message(props) {
-  const { message } = props;
-  const { keyWord } = props;
+  const { message, keyWord, type } = props;
 
   useEffect(() => {
     const convertData = (message, keyWord) => {
@@ -46,40 +45,37 @@ export default function Message(props) {
         information.insertAdjacentHTML("beforeEnd", `<span>${informationNew}</span>`);
       }
     };
-    message.forEach((item) => {
-      convertData(item, keyWord);
-    });
+    convertData(message, keyWord);
   });
 
   return (
     <div className="message-content">
-      {message.map((item) => (
-        <div
-          className={`message-container ${item.from_me ? "row-reverse" : ""}`}
-          id={item.id}
-          key={item.id}
-        >
-          <div className="message-pic">
-            <img src={item.speaker.avatar_url} alt="" />
-          </div>
-          <div className={item.from_me ? "my-area" : "information-area"}>
-            {!item.from_me && <div className="message-name">{item.speaker.nickname}</div>}
-            {item.type === 2001 && <Text message={item} />}
-            {item.type === 2002 && <Image message={item} />}
-            {item.type === 2003 && <Audio message={item} />}
-            {item.type === 2004 && <Video message={item} />}
-            {item.type === 2005 && <Link message={item} />}
-            {item.type === 2006 && <Card message={item} />}
-            {item.type === 2007 && <ExpressionImage message={item} />}
-            {item.type === 2010 && <File message={item} />}
-            {item.type === 2013 && <MiniProgram message={item} />}
-            {item.type === 2016 && <Application message={item} />}
-            <div className={item.from_me ? "my-message-time" : "other-message-time"}>
-              {convertMessageTime(item.message_time)}
-            </div>
+      <div
+        className={`message-container ${type === "search" ? "message-search" : ""}  ${
+          message.from_me ? "row-reverse" : ""
+        }`}
+        id={message.id}
+      >
+        <div className="message-pic">
+          <img src={message.speaker.avatar_url} alt="" />
+        </div>
+        <div className={message.from_me ? "my-area" : "information-area"}>
+          {!message.from_me && <div className="message-name">{message.speaker.nickname}</div>}
+          {message.type === 2001 && <Text message={message} />}
+          {message.type === 2002 && <Image message={message} />}
+          {message.type === 2003 && <Audio message={message} />}
+          {message.type === 2004 && <Video message={message} />}
+          {message.type === 2005 && <Link message={message} />}
+          {message.type === 2006 && <Card message={message} />}
+          {message.type === 2007 && <ExpressionImage message={message} />}
+          {message.type === 2010 && <File message={message} />}
+          {message.type === 2013 && <MiniProgram message={message} />}
+          {message.type === 2016 && <Application message={message} />}
+          <div className={message.from_me ? "my-message-time" : "other-message-time"}>
+            {convertMessageTime(message.message_time)}
           </div>
         </div>
-      ))}
+      </div>
     </div>
   );
 }

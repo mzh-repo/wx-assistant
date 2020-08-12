@@ -14,17 +14,25 @@ export default function Audios(props) {
   const { id } = message;
 
   useEffect(() => {
+    let isUnmounted = false;
     const voice = document.querySelector(`#message-${id}`);
     voice.setAttribute("data-after", `${message.content.voice_time}″`);
-    // // 微信arm转mp3
+    //  微信arm转mp3
     const url = message.content.url.replace(Config.audioOrgin, Config.audioUrl);
     fetch(url)
       .then((res) => res.arrayBuffer())
       .then((arrayBuffer) => {
         const blob = Audio.convert(arrayBuffer);
         const url = URL.createObjectURL(blob);
-        setAudioUrl(url);
+        if (!isUnmounted) {
+          setAudioUrl(url);
+        }
       });
+
+    return () => {
+      isUnmounted = true;
+    };
+    // eslint-disable-next-line
   }, [id, message.content.url, message.content.voice_time]);
 
   const playAudio = () => {

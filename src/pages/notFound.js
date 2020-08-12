@@ -17,7 +17,13 @@ export default class notFound extends Component {
   render() {
     return (
       <div className="not-found">
-        <Progress type="circle" percent={100} format={() => "404"} width={200} status="active" />
+        <Progress
+          type="circle"
+          percent={100}
+          format={() => "404"}
+          width={200}
+          status="active"
+        />
 
         <div className="link">
           <p>
