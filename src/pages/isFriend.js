@@ -108,9 +108,9 @@ export default (props) => {
       <div className="search-box">
         <div className="title">所属微信</div>
         <Select style={{ width: 200 }} defaultValue={belong} onChange={handleChange}>
-          {users.map((d) => (
-            <Select.Option key={d.wechat_id} title={d.display_name}>
-              {d.display_name}
+          {users.map((user) => (
+            <Select.Option key={user.wechat_id} title={user.display_name}>
+              {user.display_name}
             </Select.Option>
           ))}
         </Select>

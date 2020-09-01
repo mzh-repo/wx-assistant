@@ -23,11 +23,14 @@ export default function Message(props) {
       const information = document.querySelector(`#information-${message.id}`);
       if (title) {
         title.removeChild(title.querySelectorAll("span")[0]);
-        let titleNew = message.content.title;
+        let titleNew = message.content.title || message.content;
         if (keyWord !== "") {
           const reg = new RegExp(keyWord, "gi");
           if (titleNew) {
-            titleNew = titleNew.replace(reg, (txt) => `<span class="key-word-wait">${txt}</span>`);
+            titleNew = titleNew.replace(
+              reg,
+              (txt) => `<span style="background: #ffdd33">${txt}</span>`
+            );
           }
         }
         title.insertAdjacentHTML("beforeEnd", `<span>${titleNew}</span>`);
@@ -39,7 +42,7 @@ export default function Message(props) {
           const reg = new RegExp(keyWord, "gi");
           informationNew = informationNew.replace(
             reg,
-            (txt) => `<span class="key-word-wait">${txt}</span>`
+            (txt) => `<span style="background: #ffdd33">${txt}</span>`
           );
         }
         information.insertAdjacentHTML("beforeEnd", `<span>${informationNew}</span>`);

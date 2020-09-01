@@ -6,7 +6,7 @@ export default function Text(props) {
 
   return (
     <div className={message.from_me ? "my-message" : "other-message"}>
-      <div className="word" id={id}>
+      <div className="word" id={`title-${id}`}>
         <span>{message.content}</span>
       </div>
     </div>

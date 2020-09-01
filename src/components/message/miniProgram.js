@@ -8,7 +8,7 @@ export default function MiniProgram(props) {
   const { content } = message;
 
   return (
-    <div className={message.from_me ? "my-message-dowload" : "other-message-dowload"}>
+    <div className={message.from_me ? "my-message-download" : "other-message-download"}>
       <div id={id} className="app-content">
         <div id={`title-${id}`} className="app-header">
           <img src={content.icon} alt="" className="app-header-img" />

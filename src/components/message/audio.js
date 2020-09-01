@@ -18,7 +18,7 @@ export default function Audios(props) {
     const voice = document.querySelector(`#message-${id}`);
     voice.setAttribute("data-after", `${message.content.voice_time}″`);
     //  微信arm转mp3
-    const url = message.content.url.replace(Config.audioOrgin, Config.audioUrl);
+    const url = message.content.url.replace(Config.audioOrigin, Config.audioUrl);
     fetch(url)
       .then((res) => res.arrayBuffer())
       .then((arrayBuffer) => {
@@ -27,6 +27,9 @@ export default function Audios(props) {
         if (!isUnmounted) {
           setAudioUrl(url);
         }
+      })
+      .catch(() => {
+        console.log("Link invalidate");
       });
 
     return () => {

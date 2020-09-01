@@ -34,7 +34,7 @@ export default function File(props) {
   };
 
   return (
-    <div className={message.from_me ? "my-message-dowload" : "other-message-dowload"}>
+    <div className={message.from_me ? "my-message-download" : "other-message-download"}>
       <div id={id} className="download" onClick={() => download(content.url)}>
         <img src={getDownloadPic(content.file_type)} alt="" />
         <div className="download-main">

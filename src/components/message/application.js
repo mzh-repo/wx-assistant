@@ -10,7 +10,7 @@ export default function Application(props) {
   };
 
   return (
-    <div className={message.from_me ? "my-message-dowload" : "other-message-dowload"}>
+    <div className={message.from_me ? "my-message-download" : "other-message-download"}>
       <div id={id} className="url" onClick={toWeb}>
         <div id={`title-${id}`} className="url-title">
           <span></span>

@@ -48,7 +48,7 @@ export default function Search(props) {
   const { search } = useParams("");
   const [chats, setChats] = useState([]);
   const [page, setPage] = useState(0);
-  const [noMore, setNoMore] = useState(false);
+  const [noMore, setNoMore] = useState(true);
   const [loading, setLoading] = useState(true);
 
   const history = useHistory();

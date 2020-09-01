@@ -5,7 +5,7 @@ export default function Card(props) {
   const { id } = message;
 
   return (
-    <div className={message.from_me ? "my-message-dowload" : "other-message-dowload"}>
+    <div className={message.from_me ? "my-message-download" : "other-message-download"}>
       <div id={id} className="card">
         <div className="card-body">[暂不支持该消息查看]</div>
         <div className="card-line" />
